@@ -38,7 +38,7 @@ def init_products(db: Session):
             price=230999.0,
             category_id=ram.id,
             characteristics={"Тип памяти":"DDR4", "Объем памяти":"2 шт х 16 ГБ", "Частота":"3200 МГц","Тайминги":"16 - 18 - 18 - 32"},
-            image_url="/static/images/KF556C36BBEK2-32.jpg"
+            image_url="KF556C36BBEK2-32.jpg"
         ),
         Product(
             name="Оперативная память ADATA XPG Lancer Blade RGB [AX5U6000C3016G-DTLABRBK] 32 ГБ",
@@ -46,7 +46,7 @@ def init_products(db: Session):
             price=420999.0,
             category_id=ram.id,
             characteristics={"Тип памяти":"DDR5", "Объем памяти":"2 шт х 16 ГБ", "Частота":"6000 МГц","Тайминги":"30 - 40 - 40"},
-            image_url="/static/images/AX5U6000C3016G-DTLABRBK.jpg"
+            image_url="AX5U6000C3016G-DTLABRBK.jpg"
         ),
         Product(
             name="1 ТБ Жесткий диск WD Purple [WD11PURZ]",
@@ -54,7 +54,7 @@ def init_products(db: Session):
             price=117999.0,
             category_id=hdd.id,
             characteristics={"Объем HDD":"1 ТБ", "Объем кэш-памяти":"64 МБ", "Скорость вращения шпинделя":"5400 об/мин","Максимальная скорость передачи данных":"110 Мбайт/сек"},
-            image_url="/static/images/WD11PURZ.jpg"
+            image_url="WD11PURZ.jpg"
         ),
         Product(
             name="1 ТБ Жесткий диск Toshiba DT01 [DT01ACA100]",
@@ -62,7 +62,7 @@ def init_products(db: Session):
             price=113999.0,
             category_id=hdd.id,
             characteristics={"Объем HDD":"1 ТБ", "Объем кэш-памяти":"32 МБ", "Скорость вращения шпинделя":"7200 об/мин","Максимальная скорость передачи данных":"125 Мбайт/сек"},
-            image_url="/static/images/DT01ACA100.jpg"
+            image_url="DT01ACA100.jpg"
         ),
         Product(
             name="480 ГБ 2.5 SATA накопитель MSI SPATIUM S270 [S78-440E350-P83]",
@@ -70,7 +70,7 @@ def init_products(db: Session):
             price=67999.0,
             category_id=ssd.id,
             characteristics={"Объем накопителя":"480 ГБ", "Максимальная скорость последовательного чтения":"500 Мбайт/сек", "Максимальная скорость последовательной записи":"450 Мбайт/сек","Максимальный ресурс записи":"250 ТБ"},
-            image_url="/static/images/S78-440E350-P83.jpg"
+            image_url="S78-440E350-P83.jpg"
         ),
         Product(
             name="2000 ГБ 2.5 SATA накопитель Samsung 870 EVO [MZ-77E2T0BW]",
@@ -78,7 +78,7 @@ def init_products(db: Session):
             price=320999.0,
             category_id=ssd.id,
             characteristics={"Объем накопителя":"2000 ГБ", "Максимальная скорость последовательного чтения":"560 Мбайт/сек", "Максимальная скорость последовательной записи":"530 Мбайт/сек","Максимальный ресурс записи":"1200 ТБ"},
-            image_url="/static/images/MZ-77E2T0BW.jpg"
+            image_url="MZ-77E2T0BW.jpg"
         )
     ]
     db.add_all(products)
