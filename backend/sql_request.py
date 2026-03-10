@@ -1,36 +1,33 @@
 from sqlalchemy.orm import Session
-from models import Category, Product
+from models import Category, Product, User
+from passlib.context import CryptContext
 
 def init_categories(db: Session):
+    '''Инициализация категорий'''
     categories = [
         "Жесткие диски",           # HDD
         "Твердотельные накопители", # SSD
         "Оперативная память"        # RAM
     ]
+    if db.query(Category).count() > 0:
+        return
+    
     for cat_name in categories:
-        # Проверяем, существует ли уже категория
-        existing = db.query(Category).filter(Category.name == cat_name).first()
-        if not existing:
-            db.add(Category(name=cat_name))
+        db.add(Category(name=cat_name))
     db.commit()
+    print("Были добавлены категории")
 
 
 def init_products(db: Session):
-    # Проверяем, есть ли уже товары в базе
+    '''Инициализация товаров'''
     if db.query(Product).count() > 0:
         return  # товары уже есть – ничего не делаем
 
-    # Получаем категории по именам (они уже должны быть созданы)
+    # Получаем категории по именам
     hdd = db.query(Category).filter(Category.name == "Жесткие диски").first()
     ssd = db.query(Category).filter(Category.name == "Твердотельные накопители").first()
     ram = db.query(Category).filter(Category.name == "Оперативная память").first()
 
-    # Если какой‑то категории нет – прерываем (хотя по идее они уже есть)
-    if not all([hdd, ssd, ram]):
-        print("Не все категории найдены, товары не добавлены")
-        return
-
-    # Создаём несколько товаров
     products = [
         Product(
             name="Оперативная память Kingston FURY Beast Black [KF432C16BB1K2/32WP] 32 ГБ",
@@ -83,3 +80,18 @@ def init_products(db: Session):
     ]
     db.add_all(products)
     db.commit()
+    print("Были добавлены товары")
+
+def init_user(db: Session, pwd_context: CryptContext):
+    '''Инициализация пользователя'''
+    if db.query(User).count() > 0:
+        return
+    db.add(User(
+        first_name = "Алексей",
+        last_name = "Безруков",
+        patronymic = "Сергеевич",
+        email = 'example@mail.com',
+        phone = '79008007060',
+        password_hash = pwd_context.hash("1234")))
+    db.commit()
+    print("Был добавлен пользователь")

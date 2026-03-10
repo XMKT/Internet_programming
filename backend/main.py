@@ -4,14 +4,39 @@ from sqlalchemy.orm import Session
 from typing import Optional
 import models
 from database import SessionLocal, engine
-from sql_request import init_categories, init_products  
+from sql_request import init_categories, init_products, init_user
+from passlib.context import CryptContext
 
-# Создаем таблицы (если еще не созданы)
-models.Base.metadata.create_all(bind=engine)
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def init_db():
+    """Инициализация базы данных при запуске"""
+    db = SessionLocal()
+    try:
+        models.Base.metadata.create_all(bind=engine) # Создаем таблицы 
+        init_categories(db) # Создаем категории
+        init_products(db) # Создаем товары
+        init_user(db, pwd_context) # Создаем пользователя
+        print("База данных успешно инициализирована!")
+    except Exception as e:
+        print(f"Ошибка при инициализации БД: {e}")
+    finally:
+        db.close()
+
+
+def get_db():
+    """Зависимость для получения сессии БД"""
+    db = SessionLocal()  
+    try:
+        yield db
+    finally:
+        db.close()
+
+init_db()
 app = FastAPI()
 
-# Разрешаем React (порт 5173) стучаться к нам
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # Адрес React
@@ -21,39 +46,11 @@ app.add_middleware(
 )
 
 
-# Инициализация базы данных при запуске
-def init_db():
-    db = SessionLocal()
-    try:
-        # Создаем категории
-        init_categories(db)
-        # Создаем товары
-        init_products(db)
-        print("База данных успешно инициализирована!")
-    except Exception as e:
-        print(f"Ошибка при инициализации БД: {e}")
-    finally:
-        db.close()
-
-# Вызываем инициализацию при старте
-print("sdfsdf")
-init_db()
-
-# Зависимость для получения сессии БД
-def get_db():
-    db = SessionLocal()  
-    try:
-        yield db
-    finally:
-        db.close()
-
 # ---------- API для каталога ----------
 @app.get("/api/categories")
 async def get_categories(db: Session = Depends(get_db)):
-    """Возвращает все категории для выпадающего списка"""
+    """Возвращает категории"""
     categories = db.query(models.Category).all()
-    
-    # Преобразуем в JSON-совместимый формат
     return {
         "categories": [
             {
@@ -65,26 +62,21 @@ async def get_categories(db: Session = Depends(get_db)):
 
 @app.get("/api/products")
 async def get_products(
-    # Параметры из строки запроса
     q: Optional[str] = Query(None, description="Поисковый запрос"),
     category: Optional[str] = Query("all", description="ID категории"),
     db: Session = Depends(get_db)
 ):
     """Возвращает товары с фильтрацией по поиску и категории"""
-    
-    # Базовый запрос к товарам
+
     query = db.query(models.Product)
     
-    # Фильтрация по категории, если выбрана не «Все категории»
     if category and category != 'all':
         try:
             cat_id = int(category)
             query = query.filter(models.Product.category_id == cat_id)
         except ValueError:
-            # Если параметр не является числом, игнорируем его
             pass
     
-    # Фильтрация по поисковому запросу (регистронезависимый поиск по названию)
     if q:
         query = query.filter(models.Product.name.ilike(f"%{q}%"))
     

@@ -41,7 +41,42 @@ function ProductCard({ product }) {
 
                 {/* Вместо формы POST - fetch запрос */}
                 <button onClick={handleAddToCart} className="order-btn">
-                    +
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="25"
+                        height="25"
+                        viewBox="0 0 25 25"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            fill="none"
+                            d="M19,19 L12,19 L8,19 L6,19 L4,11 L6,11 L10,4 L14,4 L18,11 L20,11 L19,19 Z"
+                        />
+
+                        <path
+                            fill-rule="evenodd"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            fill="none"
+                            d="M9,11 L9,14"
+                        />
+
+                        <path
+                            fill-rule="evenodd"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            fill="none"
+                            d="M15,11 L15,14"
+                        />
+                    </svg>
                 </button>
             </div>
 
