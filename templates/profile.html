@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/styles.css" />
+        <title>Профиль - Незабудка</title>
+    </head>
+    <body>
+        <header>
+            <h1>Незабудка</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="cart">Корзина</a></li>
+                    <li><a href="profile">Профиль</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Основной контент -->
+
+            <!-- Секция профиля с использованием списка определений -->
+            <section class="profile-info">
+                <h2>Ваш профиль</h2>
+
+                <!-- SVG Аватар (можно оставить как есть) -->
+                <svg
+                    class="profile-avatar"
+                    width="240px"
+                    height="236px"
+                    viewBox="0 0 240 236"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        fill="rgb(224, 224, 224)"
+                        d="M239.456,202.1000 C238.526,246.000 0.453,246.000 0.453,202.1000 C0.453,167.654 0.453,139.000 119.955,139.000 C238.526,139.000 240.220,167.663 239.456,202.1000 ZM120.500,129.636 C84.878,129.636 55.1000,100.759 55.1000,65.136 C55.1000,29.514 84.878,0.636 120.500,0.636 C156.122,0.636 184.1000,29.514 184.1000,65.136 C184.1000,100.759 156.122,129.636 120.500,129.636 Z"
+                    />
+                </svg>
+
+                <!-- Данные профиля как список определений -->
+                <dl class="profile-details">
+                    <div class="profile-row">
+                        <dt>ФИО:</dt>
+                        <dd>Безруков Алексей Сергеевич</dd>
+                        <!-- Иконка теперь одна на всех и появляется при наведении на строку -->
+                    </div>
+                    <div class="profile-row">
+                        <dt>Почта:</dt>
+                        <dd>bezrukov005@gmail.com</dd>
+                    </div>
+                    <div class="profile-row">
+                        <dt>Телефон:</dt>
+                        <dd>79306650031</dd>
+                    </div>
+                    <div class="profile-row">
+                        <dt>Пароль:</dt>
+                        <dd>******</dd>
+                    </div>
+                </dl>
+
+                <button class="logout-btn">Выйти</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 ННГУ им Лобачевского. Все права защищены.</p>
+        </footer>
+    </body>
+</html>
