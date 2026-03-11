@@ -18,7 +18,7 @@ function ProductCard({ product }) {
 
             if (response.ok) {
                 // Можно показать уведомление или обновить счетчик корзины
-                alert("Товар добавлен в корзину!");
+                alert(response.message);
             }
         } catch (error) {
             console.error("Ошибка:", error);

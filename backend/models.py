@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Enum, JSON, UniqueConstraint
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-import datetime
+from datetime import datetime
 
 Base = declarative_base()
 
@@ -20,6 +20,7 @@ class User(Base):
     cart_items = relationship("Cart", back_populates="user", cascade="all, delete-orphan")
     orders = relationship("Order", back_populates="user", cascade="all, delete-orphan")
 
+
 class Category(Base):
     __tablename__ = 'categories'
 
@@ -28,6 +29,7 @@ class Category(Base):
 
     # Связь с товарами
     products = relationship("Product", back_populates="category", cascade="all, delete-orphan")
+
 
 class Product(Base):
     __tablename__ = 'products'
@@ -47,6 +49,7 @@ class Product(Base):
     cart_items = relationship("Cart", back_populates="product", cascade="all, delete-orphan")
     order_items = relationship("OrderItem", back_populates="product", cascade="all, delete-orphan")
 
+
 class Cart(Base):
     __tablename__ = 'carts'
 
@@ -58,17 +61,19 @@ class Cart(Base):
     user = relationship("User", back_populates="cart_items")
     product = relationship("Product", back_populates="cart_items")
     
+
 class Order(Base):
     __tablename__ = 'orders'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    order_date = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
+    order_date = Column(DateTime, default=datetime.utcnow, nullable=False)
     status = Column(String(50), default='pending', nullable=False)  # например: pending, paid, shipped, delivered
 
     # Связи
     user = relationship("User", back_populates="orders")
     items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
+
 
 class OrderItem(Base):
     __tablename__ = 'order_items'

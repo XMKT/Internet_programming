@@ -1,8 +1,8 @@
 // src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CatalogPage from "./components/catalog/CatalogPage";
-import Cart from "./components/Cart/Cart";
-import Profile from "./components/Profile/Profile";
+import Cart from "./components/cart/Cart";
+import Profile from "./components/profile/Profile";
 import "./styles/global.css";
 
 function App() {
